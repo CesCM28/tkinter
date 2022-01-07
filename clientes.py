@@ -85,11 +85,16 @@ def nuevo_cliente():
 
 def eliminar_cliente():
     selections = tree.selection()
-    for di in selections:
-        c.execute("DELETE FROM cliente WHERE id = ?", (di, ))
-    conn.commit()
-    render_clientes()
-    print(selections)
+    #clientes = c.execute("select * from cliente where dicredito in (")
+    respuesta = messagebox.askokcancel('Seguro?', 'Estas seguro de querer eliminar?')
+    if respuesta:
+        for di in selections:
+            c.execute("DELETE FROM cliente WHERE id = ?", (di, ))
+        conn.commit()
+        render_clientes()
+        print(selections)
+    else:
+        pass
     
 
 btn = Button(root, text='Nuevo cliente', command=nuevo_cliente)
